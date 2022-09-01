@@ -65,6 +65,16 @@ public class WebSecurityConfig {
 	public CustomLoginSuccessHandler customLoginSuccessHandler() {
 		return new CustomLoginSuccessHandler();
 	}
+
+	@Bean
+	public CustomAuthenticationProvider customAuthenticationProvider() {
+		return new CustomAuthenticationProvider(userDetailsService, bCryptPasswordEncoder());
+	}
+
+	@Bean
+	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) {
+		authenticationManagerBuilder.authenticationProvider(customAuthenticationProvider());
+	}
 }
 
 
